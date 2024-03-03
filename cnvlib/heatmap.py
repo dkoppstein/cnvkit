@@ -183,10 +183,13 @@ def do_heatmap(
         dat2plot = log2_df.drop(["start", "end"], axis="columns")
         x_pcolor, y_pcolor = sampl2plt, start2plt
 
+    scale = 3
+    vmin, vmax = -1.33 / scale, 1.33 / scale
+
     cmap = ListedColormap(
-        [plots.cvg2rgb(x, do_desaturate) for x in np.linspace(-1.33, 1.33, 200)]
+        [plots.cvg2rgb(x, do_desaturate, scale=scale) for x in np.linspace(vmin, vmax, 200)]
     )
-    im = axis.pcolormesh(x_pcolor, y_pcolor, dat2plot, vmin=-1.33, vmax=1.33, cmap=cmap)
+    im = axis.pcolormesh(x_pcolor, y_pcolor, dat2plot, vmin=vmin, vmax=vmax, cmap=cmap)
     cbar = plt.colorbar(im, ax=axis, fraction=0.04, pad=0.03, shrink=0.6)
     cbar.set_label("log2", labelpad=0)
 

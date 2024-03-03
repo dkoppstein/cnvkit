@@ -219,16 +219,16 @@ def get_repeat_slices(values):
 # Utilies used by other modules
 
 
-def cvg2rgb(cvg, desaturate):
+def cvg2rgb(cvg, desaturate, scale=3):
     """Choose a shade of red or blue representing log2-coverage value."""
-    cutoff = 1.33  # Values above this magnitude are shown with max intensity
+    cutoff = 1.33 / scale # Values above this magnitude are shown with max intensity
     x = min(abs(cvg) / cutoff, 1.0)
     if desaturate:
         # Adjust intensity sigmoidally -- reduce near 0, boost near 1
         # Exponent <1 shifts the fixed point leftward (from x=0.5)
-        x = ((1.0 - math.cos(x * math.pi)) / 2.0) ** 0.8
+        x = (((1.0 - math.cos(x * math.pi)) / 2.0) ** 0.8)
         # Slight desaturation of colors at lower coverage
-        s = x**1.2
+        s = (x**1.2)
     else:
         s = x
     if cvg < 0:

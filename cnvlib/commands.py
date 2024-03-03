@@ -1679,6 +1679,9 @@ P_heatmap.add_argument(
     nargs="+",
     help="Sample coverages as raw probes (.cnr) or segments (.cns).",
 )
+
+add_diploid_parx_genome(P_heatmap)
+
 P_heatmap.add_argument(
     "-c",
     "--chromosome",
